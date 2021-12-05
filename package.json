@@ -1,0 +1,19 @@
+{
+  "name": "@n1ru4l/bundle-anywhere-mono-repo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@changesets/cli": "2.17.0",
+    "husky": "7.0.4",
+    "nano-staged": "0.4.1",
+    "prettier": "2.5.1"
+  },
+  "nano-staged": {
+    "*.ts": "prettier --write"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  }
+}

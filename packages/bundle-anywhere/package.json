@@ -1,0 +1,42 @@
+{
+  "name": "browser-bundler",
+  "version": "1.0.0",
+  "main": "browser/bundle_esm.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/debounce": "^1.2.0",
+    "@types/node": "^14.14.22",
+    "@types/node-fetch": "^2.5.8",
+    "@types/p-defer": "^2.0.0",
+    "@types/yargs": "^16.0.0",
+    "esbuild-register": "3.2.0",
+    "prettier": "2.5.0",
+    "typescript": "4.5.2"
+  },
+  "dependencies": {
+    "assert": "2.0.0",
+    "buffer": "^6.0.3",
+    "chokidar": "^3.5.0",
+    "crypto-browserify": "^3.12.0",
+    "debounce": "^1.2.0",
+    "esbuild": "0.14.1",
+    "esbuild-wasm": "0.14.1",
+    "memfs": "^3.2.0",
+    "node-fetch": "^2.6.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "rollup": "^2.36.1",
+    "rollup-plugin-image": "^1.0.2",
+    "stream-browserify": "^3.0.0",
+    "tty-browserify": "^0.0.1",
+    "url": "0.11.0",
+    "vm-browserify": "^1.1.2",
+    "yargs": "^16.2.0"
+  },
+  "scripts": {
+    "build": "node bin/dev.js bundle src/index.ts dist/bundle.js",
+    "watch": "node bin/dev.js watch src/index.ts dist/bundle.js",
+    "build:web": "node bin/dev.js bundle src/index.ts browser/bundle.js --platform=browser",
+    "build:web_esm": "node bin/dev.js watch src/index.ts browser/bundle_esm.js --platform=browser --format=esm"
+  }
+}
