@@ -57,7 +57,7 @@ export async function run() {
 
 export function compileMemfs(
   json: Record<string, any>,
-  options: CompilerOptions
+  options: Pick<CompilerOptions, "input" | "hooks">
 ) {
   memfs.vol.fromJSON(json, "/");
   return new Compiler({

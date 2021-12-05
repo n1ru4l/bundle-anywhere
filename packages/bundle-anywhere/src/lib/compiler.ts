@@ -55,6 +55,7 @@ export class Compiler {
   result: BuildResult | undefined;
   watcher?: chokidar.FSWatcher;
   firstBuildPass = false;
+
   constructor(options: CompilerOptions) {
     this.options = normalizeOptions(options);
     if (this.options.watch && !this.watcher) {
@@ -73,11 +74,12 @@ export class Compiler {
       );
     }
   }
+
   addWatchFile(id: string) {
     this.watcher?.add(id);
   }
-  async build(watch = false) {
-    const context = this;
+
+  async build(_watch = false) {
     this.options.hooks?.start?.();
     try {
       const context = this;
@@ -137,7 +139,7 @@ export class Compiler {
           context.options.fileSystem.writeFileSync(x.path, x.text);
         });
       }
-      // this.hooks.done.promise(this.result);
+
       this.options?.hooks?.done?.(this.result!);
     } finally {
       this.firstBuildPass = true;

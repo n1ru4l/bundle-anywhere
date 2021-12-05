@@ -2,7 +2,7 @@ import type { BuildResult, Platform } from "esbuild";
 import { Plugin } from "rollup";
 import type { Format } from "esbuild";
 
-export interface NeoHooks {
+export interface Hooks {
   start?(): void;
   done?(result: BuildResult): void;
 }
@@ -14,7 +14,7 @@ export interface CompilerOptions {
   http?: boolean;
   fileSystem?: typeof import("fs");
   plugins?: Plugin[];
-  hooks?: NeoHooks;
+  hooks?: Hooks;
   watch?: boolean;
   format?: Format;
   cwd?: string;
