@@ -26,6 +26,7 @@ function resolve({
   }
   throw new Error(`${resolvedPath} not exists`);
 }
+
 export const pluginMemfs = (context: Compiler): Plugin => {
   return {
     name: "memfs-plugin",

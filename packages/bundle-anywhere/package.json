@@ -1,5 +1,5 @@
 {
-  "name": "browser-bundler",
+  "name": "@n1ru4l/bundle-anywhere",
   "version": "1.0.0",
   "main": "browser/bundle_esm.js",
   "license": "MIT",
@@ -21,6 +21,7 @@
     "debounce": "^1.2.0",
     "esbuild": "0.14.1",
     "esbuild-wasm": "0.14.1",
+    "events": "^3.2.0",
     "memfs": "^3.2.0",
     "node-fetch": "^2.6.1",
     "os-browserify": "^0.3.0",

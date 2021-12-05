@@ -12,7 +12,7 @@ import { rollupProxyPlugin } from "../plugins/rollup-proxy";
 import { pluginHttp } from "../plugins/http";
 import { pluginUnpkg } from "../plugins/unpkg";
 import path from "path";
-// import fs from "fs";
+import fs from "fs";
 import { pluginEntry } from "../plugins/entry";
 import { pluginGlobalExternal } from "../plugins/external-global";
 
@@ -21,7 +21,7 @@ function normalizeOptions(options: CompilerOptions): Required<CompilerOptions> {
   return {
     input: ensureAbsolutePath(options.input, cwd),
     output: ensureAbsolutePath(options.output ?? "", cwd),
-    fileSystem: options.fileSystem! /* ?? fs */,
+    fileSystem: options.fileSystem ?? fs,
     unpkg: options.unpkg ?? false,
     watch: options.watch ?? false,
     plugins: options.plugins ?? [],
