@@ -4,11 +4,11 @@
   "main": "browser/bundle_esm.js",
   "license": "MIT",
   "devDependencies": {
-    "@types/debounce": "^1.2.0",
-    "@types/node": "^14.14.22",
-    "@types/node-fetch": "^2.5.8",
-    "@types/p-defer": "^2.0.0",
-    "@types/yargs": "^16.0.0",
+    "@types/debounce": "1.2.1",
+    "@types/node": "14.18.0",
+    "@types/node-fetch": "2.5.12",
+    "@types/p-defer": "2.0.0",
+    "@types/yargs": "16.0.4",
     "esbuild-register": "3.2.0",
     "prettier": "2.5.1",
     "typescript": "4.5.2"
