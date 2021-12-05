@@ -1,6 +1,6 @@
 {
   "name": "@n1ru4l/bundle-anywhere",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "exports": {
     ".": {
       "node": "./dist/bundle_esm.js",
