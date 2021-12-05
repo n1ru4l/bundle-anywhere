@@ -27,11 +27,7 @@ const getService = (): typeof initializedPromise => {
 
 const wasmBuild = async (options: BuildOptions): Promise<BuildResult> => {
   const service = await getService();
-  try {
-    return service.build(options);
-  } finally {
-    //service.stop();
-  }
+  return service.build(options);
 };
 
 const wasmTransform = async (
@@ -39,11 +35,7 @@ const wasmTransform = async (
   options: TransformOptions
 ): Promise<TransformResult> => {
   const service = await getService();
-  try {
-    return service.transform(input, options);
-  } finally {
-    // service.stop();
-  }
+  return service.transform(input, options);
 };
 
 declare global {

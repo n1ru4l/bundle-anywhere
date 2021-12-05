@@ -26,18 +26,14 @@ const createPackageJSONResolver = () => {
 };
 
 export const pluginBareModule = (context: Compiler): Plugin => {
-  const fs = context.options.fileSystem;
-
   /** List of all resolved dependency versions. */
   let dependencyList: Record<string, string> = {};
   try {
     dependencyList = JSON.parse(
       // TODO: what to do on a normal file-system?
-      fs.readFileSync("/package.json", "utf-8")
+      context.options.fileSystem.readFileSync("/package.json", "utf-8")
     ).dependencies;
-  } catch (err) {
-    console.error(err);
-  }
+  } catch (err) {}
 
   const resolvePackageJSON = createPackageJSONResolver();
 

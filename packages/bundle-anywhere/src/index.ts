@@ -24,6 +24,8 @@ export async function run() {
           fileSystem: fs,
         });
         await compiler.build();
+        // TODO: figure out what keeps the event loop alive
+        process.exit(0);
       }
     )
     .command(
