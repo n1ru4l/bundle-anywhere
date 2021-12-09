@@ -16,6 +16,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "release:canary": "(node scripts/canary-release.js && yarn build && yarn changeset publish --tag alpha) || echo Skipping Canary..."
+    "release:canary": "(node scripts/canary-release.js && yarn build && yarn changeset publish --tag alpha) || echo Skipping Canary...",
+    "build": "yarn workspaces run build"
   }
 }
