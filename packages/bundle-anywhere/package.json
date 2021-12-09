@@ -47,5 +47,8 @@
     "build:web:cjs": "node bin/dev.js bundle src/index.ts dist/bundle_web_cjs.js --platform=browser",
     "build:web:esm": "node bin/dev.js bundle src/index.ts dist/bundle_web_esm.js --platform=browser --format=esm",
     "build": "yarn run build:esm && yarn run build:web:esm && yarn build:cjs && yarn build:web:cjs"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
