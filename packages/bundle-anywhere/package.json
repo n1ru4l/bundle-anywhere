@@ -10,6 +10,7 @@
   },
   "main": "dist/bundle_cjs.js",
   "browser": "dist/bundle_web_cjs.js",
+  "types": "./types/index.d.ts",
   "license": "MIT",
   "devDependencies": {
     "@types/debounce": "1.2.1",
@@ -35,7 +36,6 @@
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "rollup": "^2.36.1",
-    "rollup-plugin-image": "^1.0.2",
     "stream-browserify": "^3.0.0",
     "tty-browserify": "^0.0.1",
     "url": "0.11.0",
@@ -47,6 +47,16 @@
     "build:esm": "node bin/dev.js bundle src/index.ts dist/bundle_esm.js --format=esm",
     "build:web:cjs": "node bin/dev.js bundle src/index.ts dist/bundle_web_cjs.js --platform=browser",
     "build:web:esm": "node bin/dev.js bundle src/index.ts dist/bundle_web_esm.js --platform=browser --format=esm",
-    "build": "yarn run build:esm && yarn run build:web:esm && yarn build:cjs && yarn build:web:cjs"
-  }
+    "build:type-defs": "tsc --declaration --outDir types --emitDeclarationOnly --noEmit false --declarationMap false",
+    "build": "yarn run build:esm && yarn run build:web:esm && yarn build:cjs && yarn build:web:cjs && yarn build:type-defs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    "types",
+    "dist",
+    "bin"
+  ]
 }

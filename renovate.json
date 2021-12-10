@@ -2,5 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
   "postUpdateOptions": ["yarnDedupeFewer"],
-  "labels": ["dependencies"]
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "groupName": "esbuild",
+      "matchPackageNames": ["esbuild", "esbuild-wasm"]
+    }
+  ]
 }
