@@ -1,4 +1,4 @@
-import type { Plugin } from "esbuild";
+import type { Platform, Plugin } from "esbuild";
 import { Compiler } from "../lib/compiler";
 import { UnpkgNamespace } from "./unpkg";
 import { UnpkgHost } from "./unpkg";
@@ -25,6 +25,30 @@ const createPackageJSONResolver = () => {
   return getCachedPackageJSON;
 };
 
+const createEntryPointResolver = (_platform: Platform) => {
+  // TODO: better platform respect
+  return (packageJSON: Record<string, unknown>) => {
+    if (
+      "exports" in packageJSON &&
+      typeof packageJSON["exports"] === "object" &&
+      packageJSON["exports"] != null
+    ) {
+      const exports: Record<string, any> = packageJSON["exports"];
+      const rootImport = exports["."];
+
+      if (typeof rootImport === "string") {
+        return rootImport;
+      } else if (typeof rootImport === "object") {
+        if (rootImport["import"]) {
+          return rootImport["import"];
+        }
+      }
+    }
+
+    return "";
+  };
+};
+
 export const pluginBareModule = (context: Compiler): Plugin => {
   /** List of all resolved dependency versions. */
   let dependencyList: Record<string, string> = {};
@@ -36,6 +60,7 @@ export const pluginBareModule = (context: Compiler): Plugin => {
   } catch (err) {}
 
   const resolvePackageJSON = createPackageJSONResolver();
+  const resolveEntryPoint = createEntryPointResolver(context.options.platform);
 
   return {
     name: "bare",
@@ -47,6 +72,11 @@ export const pluginBareModule = (context: Compiler): Plugin => {
               return;
             }
 
+            // the entry-point file
+            // by default we use the redirect that unpkg gives us if we dont specify a specific file
+            // however, we try to parse the package.json exports field for finding the ESM module entry point!
+            let entryPoint = "";
+
             // If the dependency is already in our dependency list
             // we add the dependencies of our dependency to the to be resolved packages
             // NOTE: Right now we only do FLAT dependencies.
@@ -56,20 +86,26 @@ export const pluginBareModule = (context: Compiler): Plugin => {
                 args.path,
                 dependencyList[args.path]
               );
-              // TODO: resolve proper entry file (https://github.com/n1ru4l/bundle-anywhere/issues/4)
+
+              entryPoint = resolveEntryPoint(packageJSON);
+              if (entryPoint[0] === ".") {
+                entryPoint = entryPoint.substring(1);
+              }
+
               dependencyList = {
                 ...packageJSON.dependencies,
                 ...dependencyList,
               };
             }
 
-            // If the dependency is not in our dependency list we do not resolve it.
+            // If the dependency is not in our dependency list we do not resolve it and cause an error
+            // We should probably add a "unsafe" mode later-on that allows resolving all kinds of dependencies automatically.
             if (!dependencyList[args.path]) {
               return;
             }
 
             return {
-              path: args.path + "@" + dependencyList[args.path],
+              path: args.path + "@" + dependencyList[args.path] + entryPoint,
               namespace: UnpkgNamespace,
               pluginData: {
                 parentUrl: UnpkgHost,
