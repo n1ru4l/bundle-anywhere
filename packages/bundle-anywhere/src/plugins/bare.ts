@@ -126,7 +126,6 @@ export const pluginBareModule = (context: Compiler): Plugin => {
             }
 
             const { packageName, deepImportPath } = parsePath(args.path);
-            console.log(args.path, packageName, deepImportPath);
 
             // the entry-point file
             // by default we use the redirect that unpkg gives us if we dont specify a specific file
@@ -161,6 +160,9 @@ export const pluginBareModule = (context: Compiler): Plugin => {
             // If the dependency is not in our dependency list we do not resolve it and cause an error
             // We should probably add a "unsafe" mode later-on that allows resolving all kinds of dependencies automatically.
             if (!dependencyVersion) {
+              throw new Error(
+                `Could not resolve package '${packageName}', as it is not listed as a dependency.`
+              );
               return;
             }
 
