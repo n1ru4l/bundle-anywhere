@@ -21,7 +21,7 @@
     "@types/yargs": "16.0.4",
     "esbuild-register": "3.2.0",
     "prettier": "2.5.1",
-    "typescript": "4.5.3"
+    "typescript": "4.5.4"
   },
   "dependencies": {
     "assert": "2.0.0",
