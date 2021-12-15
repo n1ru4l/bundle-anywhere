@@ -26,12 +26,26 @@ const createPackageJSONResolver = () => {
   return getCachedPackageJSON;
 };
 
+const getGlobPrefix = (globString: string) => {
+  const [prefix] = globString.split("*");
+  return prefix;
+};
+
+const removeRelativePrefix = (str: string) =>
+  str.startsWith("./") ? str.replace("./", "") : str;
+
+const relativeToAbsolutePrefix = (str: string) =>
+  str.startsWith("./") ? str.replace("./", "/") : str;
+
+// TODO: make this a separate package, anyone can use
 const createEntryPointResolver = (_platform: Platform) => {
   // TODO: better platform respect
   return (
     packageJSON: Record<string, unknown>,
     deepImportPath: string | null
   ) => {
+    // TODO: Use something like zod for parsing the exports field.
+
     if (
       "exports" in packageJSON &&
       typeof packageJSON["exports"] === "object" &&
@@ -45,17 +59,47 @@ const createEntryPointResolver = (_platform: Platform) => {
 
         if (typeof rootImport === "string") {
           return rootImport;
-        } else if (typeof rootImport === "object" && rootImport["import"]) {
+        } else if (typeof rootImport === "object") {
+          // TODO: handling when import is missing :(
           return rootImport["import"];
         }
       } else {
         // we need to figure out whether the deep import matches any of the exports in our map
-        const exportKeys = Object.keys(exports);
-        const fullPath = "./" + deepImportPath;
+        const exportKeys = Object.entries(exports);
+        const importPath = deepImportPath;
 
-        for (const pattern in exportKeys) {
-          if (micromatch.isMatch(fullPath, pattern)) {
-            return deepImportPath;
+        for (let [importPattern, importResolutionPath] of exportKeys) {
+          importPattern = removeRelativePrefix(importPattern);
+          // in case the thing is an object
+          if (typeof importResolutionPath !== "string") {
+            // TODO: handling when import is missing :(
+            importResolutionPath = importResolutionPath["import"];
+          }
+          importResolutionPath = removeRelativePrefix(importResolutionPath);
+
+          // the thing is not a glob expression at all, so we can instantly resolve it
+          if (importPath === importPattern) {
+            return "./" + importResolutionPath;
+          }
+
+          // otherwise check if we are dealing with a glob here
+          if (micromatch.isMatch(importPath, importPattern)) {
+            // if the resolution path is not a glob all files matching this pattern are forwarded to it
+            if (importResolutionPath.includes("*") === false) {
+              return "./" + importResolutionPath;
+            }
+
+            // if the resolution path is a glob pattern we need to resolve the actual file path
+            // DANGER: NOT REALLY TESTED SO MIGHT BE BROKEN :)
+
+            const baseImportPath = getGlobPrefix(importPattern);
+            // if we dont have a glob we need to rewrite the outside path to the actual internal path.
+            const baseInternalPath = getGlobPrefix(importResolutionPath);
+
+            const fullInternalPath =
+              baseInternalPath + importPath.replace(baseImportPath, "");
+
+            return "./" + fullInternalPath;
           }
         }
         throw new Error(
@@ -64,12 +108,16 @@ const createEntryPointResolver = (_platform: Platform) => {
       }
     }
 
+    if ("module" in packageJSON) {
+      return "./" + packageJSON["module"];
+    }
+
     // if we have no exports map in the package.json
     // we pray that unpkg resolves the entry-point we desire
     // if not we are fucked :)
     // please maintainers, adopt esm and the entry-points map
 
-    return deepImportPath ? "/" + deepImportPath : "";
+    return deepImportPath ? "./" + deepImportPath : "";
   };
 };
 
@@ -144,12 +192,9 @@ export const pluginBareModule = (context: Compiler): Plugin => {
                 dependencyVersion
               );
 
-              entryPoint = resolveEntryPoint(packageJSON, deepImportPath);
-
-              // entry points should start with "./", so we omit the dot
-              if (entryPoint[0] === ".") {
-                entryPoint = entryPoint.substring(1);
-              }
+              entryPoint = relativeToAbsolutePrefix(
+                resolveEntryPoint(packageJSON, deepImportPath)
+              );
 
               allowedDependencyList = {
                 ...packageJSON.dependencies,
@@ -163,11 +208,13 @@ export const pluginBareModule = (context: Compiler): Plugin => {
               throw new Error(
                 `Could not resolve package '${packageName}', as it is not listed as a dependency.`
               );
-              return;
             }
 
+            const resolvedPath =
+              packageName + "@" + dependencyVersion + entryPoint;
+
             return {
-              path: packageName + "@" + dependencyVersion + entryPoint,
+              path: resolvedPath,
               namespace: UnpkgNamespace,
               pluginData: {
                 parentUrl: UnpkgHost,
