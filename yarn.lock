@@ -964,12 +964,10 @@ esbuild-openbsd-64@0.14.2:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.14.2.tgz#3c5f199eed459b2f88865548394c0b77383d9ca4"
   integrity sha512-120HgMe9elidWUvM2E6mMf0csrGwx8sYDqUIJugyMy1oHm+/nT08bTAVXuwYG/rkMIqsEO9AlMxuYnwR6En/3Q==
 
-esbuild-register@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.2.0.tgz#7bfc6c8d5b20263492b2a357985f3f7b3132663c"
-  integrity sha512-i1sYwESrRHJz15Cl1u2OgLjBBp/bWtGoDdFXVLL1clsp+pFdqIpRfHIQGkgvQAlAecP5IC/bObYrKCyx/lE50Q==
-  dependencies:
-    jsonc-parser "^3.0.0"
+esbuild-register@3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.3.3.tgz#5bd80025c80caf77e6484ced5cc77233b1d39688"
+  integrity sha512-eFHOkutgIMJY5gc8LUp/7c+LLlDqzNi9T6AwCZ2WKKl3HmT+5ef3ZRyPPxDOynInML0fgaC50yszPKfPnjC0NQ==
 
 esbuild-sunos-64@0.14.2:
   version "0.14.2"
@@ -1546,11 +1544,6 @@ json-parse-even-better-errors@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz#7c47805a94319928e05777405dc12e1f7a4ee02d"
   integrity sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==
-
-jsonc-parser@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"
-  integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
 
 jsonfile@^4.0.0:
   version "4.0.0"
