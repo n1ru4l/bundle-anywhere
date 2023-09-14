@@ -19,7 +19,7 @@
     "@types/node-fetch": "2.5.12",
     "@types/p-defer": "2.0.0",
     "@types/yargs": "16.0.4",
-    "esbuild-register": "3.2.0",
+    "esbuild-register": "3.5.0",
     "prettier": "2.5.1",
     "typescript": "4.5.4"
   },
