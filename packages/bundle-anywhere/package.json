@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/debounce": "1.2.1",
     "@types/micromatch": "4.0.2",
-    "@types/node": "14.18.0",
+    "@types/node": "14.18.63",
     "@types/node-fetch": "2.5.12",
     "@types/p-defer": "2.0.0",
     "@types/yargs": "16.0.4",
