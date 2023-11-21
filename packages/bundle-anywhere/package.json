@@ -18,7 +18,7 @@
     "@types/node": "14.18.0",
     "@types/node-fetch": "2.5.12",
     "@types/p-defer": "2.0.0",
-    "@types/yargs": "16.0.4",
+    "@types/yargs": "17.0.32",
     "esbuild-register": "3.2.0",
     "prettier": "2.5.1",
     "typescript": "4.5.4"
@@ -42,7 +42,7 @@
     "tty-browserify": "^0.0.1",
     "url": "0.11.0",
     "vm-browserify": "^1.1.2",
-    "yargs": "^16.2.0"
+    "yargs": "^17.0.0"
   },
   "scripts": {
     "build:cjs": "node bin/dev.js bundle src/index.ts dist/bundle_cjs.js",
