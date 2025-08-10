@@ -34,7 +34,7 @@
     "events": "^3.2.0",
     "memfs": "^3.2.0",
     "micromatch": "^4.0.4",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.0.0",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "rollup": "^2.36.1",
