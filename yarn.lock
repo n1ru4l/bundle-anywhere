@@ -1718,10 +1718,10 @@ mixme@^0.5.1:
   resolved "https://registry.yarnpkg.com/mixme/-/mixme-0.5.4.tgz#8cb3bd0cd32a513c161bf1ca99d143f0bcf2eff3"
   integrity sha512-3KYa4m4Vlqx98GPdOHghxSdNtTvcP8E0kkaJ5Dlh+h2DRzF7zpuVVcA8B0QpKd11YJeP9QQ7ASkKzOeu195Wzw==
 
-nano-staged@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/nano-staged/-/nano-staged-0.4.1.tgz#94d0411b290b08e5f89b76105694b0662b6077ae"
-  integrity sha512-aB1w2C3wAkWoe7O3AjSTrGzF+a8wgb7cvAmZJF+D7XjppYxqrJNUkQunjsVOKIkykgkjk8h+y3IzLuy3+aTJ0g==
+nano-staged@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/nano-staged/-/nano-staged-0.9.0.tgz#4d957f3a40470d82dd26ecd739da9d8838a2b20b"
+  integrity sha512-0JfyX4i0Vp5HhC9RDtJ1kp7psz8CFuS3Gya3Z6WZv//QCwA9dPzi1S803VdR0c0P6R7sSvweZ5mSJmYQ/N+loQ==
   dependencies:
     picocolors "^1.0.0"
 
